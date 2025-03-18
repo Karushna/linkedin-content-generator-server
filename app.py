@@ -1,12 +1,18 @@
 from flask import Flask, request, jsonify
 import openai
 from flask_cors import CORS
+from dotenv import load_dotenv
+import os
 
+# Load environment variables from .env file
+load_dotenv()
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})  # Allow all origins
+# Get the API_KEY from environment variables
+API_KEY = os.getenv('API_KEY')
 
 # Initialize OpenAI client with API key
-client = openai.OpenAI(api_key="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")
+client = openai.OpenAI(api_key=API_KEY)
 
 @app.route("/generate", methods=["POST"])
 def generate_post():
